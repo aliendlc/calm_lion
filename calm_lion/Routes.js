@@ -5,7 +5,7 @@ import SignUp from "./src/screens/SignUp";
 import Home from "./src/screens/Home";
 import Profile from "./src/screens/Profile";
 import MeditationSpots from "./src/screens/MeditationSpots";
-import Journal from "./src/screens/Journal"
+import NewEntry from "./src/screens/NewEntry"
 
 const LoggedStack = createStackNavigator({
     SignedIn: {
@@ -15,7 +15,7 @@ const LoggedStack = createStackNavigator({
             },
             Profile: { screen: Profile},
             MeditationSpots: { screen: MeditationSpots},
-            Journal: { screen: Journal}
+            NewEntry: { screen: NewEntry}
         })
     }
 })
@@ -35,7 +35,7 @@ const Lion= createAppContainer(createSwitchNavigator(
         LoggedStack: LoggedStack,
     },
     {
-        initialRouteName: 'AuthStack'
+        initialRouteName: 'LoggedStack'
     }
 ));
 

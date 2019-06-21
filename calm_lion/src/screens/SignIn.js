@@ -50,7 +50,8 @@ class SignIn extends React.Component {
                 if ('auth_token' in jData){
                     console.log('HURRAY');
                     this.setState({ token: jData.auth_token})
-                    this.props.navigation.navigate('LoggedStack')
+                    console.log(email);
+                    this.props.navigation.navigate('Home', {email})
                 }else {
                     alert('not able to verify')
                 }
