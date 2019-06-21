@@ -1,7 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Picker, Modal, TouchableHighlight, Alert } from 'react-native';
-import { ThemeProvider, Button, Input, Icon } from 'react-native-elements';
+import { ThemeProvider, Button, Input, Icon, Theme } from 'react-native-elements';
 
+const theme = {
+  Button: {
+    titleStyle: {
+      color: '#F4B30F',
+    },
+  },
+};
 const styles = StyleSheet.create({
   center: {
     textAlign: 'center',
@@ -45,10 +52,6 @@ const styles = StyleSheet.create({
       color: '#84D2DE',
       fontWeight: 'bold',
   },
-  button: {
-      backgroundColor: "#EA8F3C"
-  }
-
 });
 
 class NewEntry extends React.Component {
@@ -137,9 +140,28 @@ class NewEntry extends React.Component {
                                     onValueChange={(itemValue) =>
                                       this.setState({iso: itemValue})
                                     }>
-                                    <Picker.Item label="ISO" value="None" />
-                                    <Picker.Item label="100" value="100" />
-                                    <Picker.Item label="200" value="200" />
+                                    <Picker.Item label="ISO" value="None"/>
+                                    <Picker.Item label="50" value="50"/>
+                                    <Picker.Item label="64" value="64"/>
+                                    <Picker.Item label="80" value="80"/>
+                                    <Picker.Item label="100" value="100"/>
+                                    <Picker.Item label="125" value="125"/>
+                                    <Picker.Item label="160" value="160"/>
+                                    <Picker.Item label="200" value="200"/>
+                                    <Picker.Item label="250" value="250"/>
+                                    <Picker.Item label="320" value="320"/>
+                                    <Picker.Item label="400" value="400"/>
+                                    <Picker.Item label="500" value="500"/>
+                                    <Picker.Item label="640" value="640"/>
+                                    <Picker.Item label="800" value="800"/>
+                                    <Picker.Item label="1000" value="1000"/>
+                                    <Picker.Item label="1250" value="1250"/>
+                                    <Picker.Item label="1600" value="1600"/>
+                                    <Picker.Item label="2000" value="2000"/>
+                                    <Picker.Item label="2500" value="2500"/>
+                                    <Picker.Item label="3200" value="3200"/>
+                                    <Picker.Item label="4000" value="4000"/>
+                                    <Picker.Item label="6400" value="6400"/>
                                  </Picker>
                               </View>
                               <View>
@@ -150,9 +172,27 @@ class NewEntry extends React.Component {
                                      onValueChange={(itemValue) =>
                                        this.setState({aperture: itemValue})
                                      }>
-                                     <Picker.Item label="Aperture" value="None" />
-                                     <Picker.Item label="100" value="100" />
-                                     <Picker.Item label="200" value="200" />
+                                     <Picker.Item label="Aperture" value="None"/>
+                                     <Picker.Item label="1.4" value="1.4"/>
+                                     <Picker.Item label="2" value="2"/>
+                                     <Picker.Item label="2.8" value="2.8"/>
+                                     <Picker.Item label="3.2" value="3.2"/>
+                                     <Picker.Item label="3.5" value="3.5"/>
+                                     <Picker.Item label="4" value="4"/>
+                                     <Picker.Item label="4.5" value="4.5"/>
+                                     <Picker.Item label="5" value="5" />
+                                     <Picker.Item label="5.6" value="5.6"/>
+                                     <Picker.Item label="6.3" value="6.3"/>
+                                     <Picker.Item label="7.1" value="7.1"/>
+                                     <Picker.Item label="8" value="8"/>
+                                     <Picker.Item label="9" value="9"/>
+                                     <Picker.Item label="10" value="10"/>
+                                     <Picker.Item label="11" value="11"/>
+                                     <Picker.Item label="13" value="13"/>
+                                     <Picker.Item label="14" value="14"/>
+                                     <Picker.Item label="16" value="16"/>
+                                     <Picker.Item label="18" value="18"/><Picker.Item label="20" value="20"/>
+                                     <Picker.Item label="22" value="22"/>
                                   </Picker>
                               </View>
                               <View>
@@ -163,11 +203,66 @@ class NewEntry extends React.Component {
                                       onValueChange={(itemValue) =>
                                         this.setState({shutter: itemValue})
                                       }>
-                                      <Picker.Item label="Shutter" value="None" />
-                                      <Picker.Item label="100" value="100" />
-                                      <Picker.Item label="200" value="200" />
-                                      <Picker.Item label="300" value="300" />
-                                      <Picker.Item label="400" value="400" />
+                                      <Picker.Item label="Shutter" value="None"/>
+                                      <Picker.Item label="30" value="30"/>
+                                      <Picker.Item label="15" value="15"/>
+                                      <Picker.Item label="8" value="8"/>
+                                      <Picker.Item label="4" value="4"/>
+                                      <Picker.Item label="2" value="2" />
+                                      <Picker.Item label="1" value="1"/>
+                                      <Picker.Item label="1/1.3" value="1/1.3"/>
+                                      <Picker.Item label="1/1.6" value="1/1.6"/>
+                                      <Picker.Item label="1/2" value="1/2"/>
+                                      <Picker.Item label="1/2.5" value="1/2.5"/>
+                                      <Picker.Item label="1/3" value="1/3"/>
+                                      <Picker.Item label="22" value="22"/>
+                                      <Picker.Item label="1/2.5" value="1/2.5"/>
+                                      <Picker.Item label="1/3" value="1/3"/>
+                                      <Picker.Item label="1/4" value="1/4"/>
+                                      <Picker.Item label="1/5" value="1/5"/>
+                                      <Picker.Item label="1/6" value="1/6"/>
+                                      <Picker.Item label="1/8" value="1/8"/>
+                                      <Picker.Item label="1/10" value="1/10"/>
+                                      <Picker.Item label="1/13" value="1/13"/>
+                                      <Picker.Item label="1/15" value="1/15"/>
+                                      <Picker.Item label="1/20" value="1/20"/>
+                                      <Picker.Item label="1/25" value="1/25"/>
+                                      <Picker.Item label="1/30" value="1/30"/>
+                                      <Picker.Item label="1/40" value="1/40"/>
+                                      <Picker.Item label="1/50" value="1/50"/>
+                                      <Picker.Item label="1/60" value="1/60"/>
+                                      <Picker.Item label="1/80" value="1/80"/>
+                                      <Picker.Item label="1/10" value="1/10"/>
+                                      <Picker.Item label="1/13" value="1/13"/>
+                                      <Picker.Item label="1/15" value="1/15"/>
+                                      <Picker.Item label="1/20" value="1/20"/>
+                                      <Picker.Item label="1/25" value="1/25"/>
+                                      <Picker.Item label="1/30" value="1/30"/>
+                                      <Picker.Item label="1/40" value="1/40"/>
+                                      <Picker.Item label="1/50" value="1/50"/>
+                                      <Picker.Item label="1/60" value="1/60"/>
+                                      <Picker.Item label="1/80" value="1/80"/>
+                                      <Picker.Item label="1/100" value="1/100"/>
+                                      <Picker.Item label="1/125" value="1/125"/>
+                                      <Picker.Item label="1/160" value="1/160"/>
+                                      <Picker.Item label="1/200" value="1/200"/>
+                                      <Picker.Item label="1/250" value="1/250"/>
+                                      <Picker.Item label="1/320" value="1/320"/>
+                                      <Picker.Item label="1/400" value="1/400"/>
+                                      <Picker.Item label="1/500" value="1/500"/>
+                                      <Picker.Item label="1/640" value="1/640"/>
+                                      <Picker.Item label="1/800" value="1/800"/>
+                                      <Picker.Item label="1/1000" value="1/1000"/>
+                                      <Picker.Item label="1/1250" value="1/1250"/>
+                                      <Picker.Item label="1/1600" value="1/1600"/>
+                                      <Picker.Item label="1/2000" value="1/2000"/>
+                                      <Picker.Item label="1/2500" value="1/2500"/>
+                                      <Picker.Item label="1/3200" value="1/3200"/>
+                                      <Picker.Item label="1/4000" value="1/4000"/>
+                                      <Picker.Item label="1/5000" value="1/5000"/>
+                                      <Picker.Item label="1/6400" value="1/6400"/>
+                                      <Picker.Item label="1/8000" value="1/8000"/>
+
                                    </Picker>
                               </View>
                               <View>
@@ -185,10 +280,12 @@ class NewEntry extends React.Component {
                               </View>
                             </View>
                         </Modal>
-                        <Button
-                            title="Submit Photo"
-                            style={styles.button}
-                        />
+                        <ThemeProvider theme={theme}>
+                          <Button
+                              title="Submit Photo"
+
+                          />
+                        </ThemeProvider>
                 </View>
             );
       }
