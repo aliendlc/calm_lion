@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator,  } from 'react-navigation';
 import SignIn from "./src/screens/SignIn";
 import SignUp from "./src/screens/SignUp";
 import Home from "./src/screens/Home";
 import Profile from "./src/screens/Profile";
-import MeditationSpots from "./src/screens/MeditationSpots";
-import NewEntry from "./src/screens/NewEntry"
+import MyPhotos from "./src/screens/MyPhotos";
+import NewEntry from "./src/screens/NewEntry";
+import ShowPhoto from "./src/screens/ShowPhoto";
+import Update from "./src/screens/Update";
 
 const LoggedStack = createStackNavigator({
     SignedIn: {
@@ -14,7 +16,9 @@ const LoggedStack = createStackNavigator({
                 screen: Home,
             },
             Profile: { screen: Profile},
-            MeditationSpots: { screen: MeditationSpots},
+            MyPhotos: {
+              screen: MyPhotos
+            },
             NewEntry: { screen: NewEntry}
         })
     }
@@ -29,10 +33,23 @@ const AuthStack = createStackNavigator({
       },
 });
 
+const MyPhotosStack = createStackNavigator({
+      MyPhotos: {
+          screen: MyPhotos,
+      },
+      ShowPhoto: {
+          screen: ShowPhoto
+      },
+      Update: {
+          screen: Update
+      },
+});
+
 const Lion= createAppContainer(createSwitchNavigator(
     {
         AuthStack: AuthStack,
         LoggedStack: LoggedStack,
+        MyPhotosStack: MyPhotosStack
     },
     {
         initialRouteName: 'LoggedStack'

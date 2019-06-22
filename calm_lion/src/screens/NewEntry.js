@@ -1,17 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, Picker, Modal, TouchableHighlight, Alert } from 'react-native';
+import { View, Text, StyleSheet, Picker, TextInput, Modal, TouchableHighlight, Alert } from 'react-native';
 import { ThemeProvider, Button, Input, Icon, Theme } from 'react-native-elements';
 
 const theme = {
   Button: {
     titleStyle: {
-      color: '#F4B30F',
+      color: '#99ccff',
+      fontWeight: 'bold'
     },
   },
 };
 const styles = StyleSheet.create({
   center: {
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  bold: {
+    fontWeight: 'bold'
   },
   container: {
     flex: 2,
@@ -23,8 +30,8 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     margin: 30,
-    fontSize: 40,
-    color: '#B4D3AA',
+    fontSize: 20,
+    color: '#9CCF31',
     fontWeight: 'bold',
 
   },
@@ -43,13 +50,13 @@ const styles = StyleSheet.create({
       width: 100
   },
   category: {
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: 'bold',
-      color: '#B24629'
+      color: 'red'
   },
   details: {
       fontSize: 20,
-      color: '#84D2DE',
+      color: '#99ccff',
       fontWeight: 'bold',
   },
 });
@@ -67,28 +74,105 @@ class NewEntry extends React.Component {
           aperture: '',
           shutter: '',
           modalVisible: false,
-          location: ''
+          latitude: null,
+          longitude: null,
+          date: '',
+          camera: '',
+          description: 'no description',
+          success: false
         };
      };
      setModalVisible(visible) {
     this.setState({modalVisible: visible});
     }
+    geoSuccess = (position) => {
+        this.setState({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+        });
+        console.log(position);
+    }
+    geoFailure = (err) => {
+        Alert.alert("location unavailable")
+    }
+    hello = () => {
+        console.log(this.state);
+    }
+    componentDidMount(){
+      let today = new Date().getDate();
+      let month = new Date().getMonth();
+      let year = new Date().getFullYear();
+      let hour =  new Date().getHours();
+      let min = new Date().getMinutes();
+      let date = today + '/' + month + '/' + year + '  ' + hour + ':' + min
 
+      let geoOptions = {timeOut: 15000}
+      navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions)
+      // could've gotten timestamp from geolocation
+      this.setState({date: date});
+      }
+      newPhoto = (photo) => {
+            console.log(this.state);
+            console.log(photo);
+            fetch('http://localhost:3000/photos', {
+                body: JSON.stringify(photo),
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+              }).then( createdphoto => {
+                    return createdphoto.json()
+                    setState(prevState => {
+                        success: !prevState
+                    })
+                }).then( jData => {
+                    console.log(jData, '.then Jdata');
+                    this.props.navigation.navigate('MyPhotos')
+                    console.log(this.state);
+                }).catch( err => console.log(err));
+      }
+      success = () => {
+          setState({
+              success: true
+          })
+      }
+      navigate = () => {
+          this.props.navigation.navigate('MyPhotos')
+      }
       render() {
            return (
                 <View style = {styles.container}>
-                      <Text style={styles.subHeading}>Log Photo!</Text>
-                      <Text style={styles.category}>Film</Text>
-                      <Input
+                      <Text style={styles.category}>Description</Text>
+                      <TextInput
+                      style={styles.center}
+                      autoCapitalize = 'none'
+                      onChangeText={(description) => this.setState({ description: description })}
+                      placeholder='Description'
+                      />
+                      <Text style={styles.category}>Film / Collection</Text>
+                      <TextInput
+                      style={styles.center}
                       autoCapitalize = 'none'
                       onChangeText={(film) => this.setState({ film: film })}
-                      placeholder='film roll'
+                      placeholder='Film Roll / Collection'
                       />
-                      <Text style={styles.category}>Location</Text>
-                      <Input
+                      <Text style={styles.category}>Camera</Text>
+                      <TextInput
+                      style={styles.center}
                       autoCapitalize = 'none'
-                      placeholder='Location'
+                      onChangeText={(camera) => this.setState({ camera: camera })}
+                      placeholder='Camera'
                       />
+                      <Text style={styles.category}>Date</Text>
+                      <View>
+                          <Text style={styles.bold}>{this.state.date}</Text>
+                      </View>
+                      <Text style={styles.category}>Location</Text>
+                      <View>
+                          <Text style={styles.bold}>Latitude:  {this.state.latitude}</Text>
+                          <Text style={styles.bold}>Longitude:  {this.state.longitude}</Text>
+                      </View>
                       <TouchableHighlight
                            onPress={() => {
                              this.setModalVisible(true);
@@ -97,19 +181,19 @@ class NewEntry extends React.Component {
                      </TouchableHighlight>
                       <Text style={styles.category}>Photo Type</Text>
                       <View>
-                          <Text>{this.state.type}</Text>
+                          <Text style={styles.bold}>{this.state.type}</Text>
                       </View>
                       <Text style={styles.category}>ISO</Text>
                       <View>
-                          <Text>{this.state.iso}</Text>
+                          <Text style={styles.bold}>{this.state.iso}</Text>
                       </View>
                       <Text style={styles.category}>Aperture</Text>
                       <View>
-                          <Text>{this.state.aperture}</Text>
+                          <Text style={styles.bold}>{this.state.aperture}</Text>
                       </View>
                       <Text style={styles.category}>Shutter Speed</Text>
                       <View>
-                          <Text>{this.state.shutter}</Text>
+                          <Text style={styles.bold}>{this.state.shutter}</Text>
                       </View>
                       <Modal
                           animationType="slide"
@@ -215,7 +299,6 @@ class NewEntry extends React.Component {
                                       <Picker.Item label="1/2" value="1/2"/>
                                       <Picker.Item label="1/2.5" value="1/2.5"/>
                                       <Picker.Item label="1/3" value="1/3"/>
-                                      <Picker.Item label="22" value="22"/>
                                       <Picker.Item label="1/2.5" value="1/2.5"/>
                                       <Picker.Item label="1/3" value="1/3"/>
                                       <Picker.Item label="1/4" value="1/4"/>
@@ -283,7 +366,8 @@ class NewEntry extends React.Component {
                         <ThemeProvider theme={theme}>
                           <Button
                               title="Submit Photo"
-
+                              type="clear"
+                              onPress={() => this.newPhoto(this.state)}
                           />
                         </ThemeProvider>
                 </View>
