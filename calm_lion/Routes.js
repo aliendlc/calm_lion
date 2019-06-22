@@ -15,7 +15,7 @@ const LoggedStack = createStackNavigator({
             Home: {
                 screen: Home,
             },
-            Profile: { screen: Profile},
+            // Profile: { screen: Profile},
             MyPhotos: {
               screen: MyPhotos
             },

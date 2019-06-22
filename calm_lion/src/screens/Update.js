@@ -65,8 +65,8 @@ class Update extends React.Component {
   static navigationOptions = {
     title: 'Update Details'
          };
-  constructor(props) {
-         super(props);
+  constructor() {
+         super();
          this.state = {
              type: '',
              iso: '',
@@ -75,11 +75,9 @@ class Update extends React.Component {
              shutter: '',
              camera: '',
              description: 'no description',
-             photo_id: null,
-             photo: {},
-             modalVisible: false
+             modalVisible: false,
+             photo_url: ''
            };
-          let aPhoto = {}
   };
 
   // componentWillMount(){
@@ -92,7 +90,7 @@ class Update extends React.Component {
     const { navigation } = this.props;
     const photo = navigation.getParam('photo')
     aPhoto = photo
-    console.log(aPhoto.description);
+    // console.log(aPhoto.description);
         this.setState({
             type: String(aPhoto.type),
             iso: String(aPhoto.iso),
@@ -108,9 +106,17 @@ class Update extends React.Component {
   setModalVisible(visible) {
        this.setState({modalVisible: visible});
   }
-  handleUpdate = (newPhoto, id) => {
+  handleUpdate = () => {
+          const { navigation } = this.props;
+          const photoInfo = navigation.getParam('photo')
+          const aPhoto = photoInfo
+          let id = aPhoto.photo_id
+          this.setState({photo_id: id})
+          const newPhoto = this.state
+          console.log(aPhoto);
+          console.log(newPhoto);
           fetch(`http://localhost:3000/photos/${id}`, {
-              body: JSON.stringify(newPhoto),
+              body: JSON.stringify(newPhoto, id),
               method: 'PUT',
               headers: {
                   'Accept': 'application/json, text/plain, */*',
@@ -143,6 +149,13 @@ class Update extends React.Component {
                    onChangeText={(film) => this.setState({ film: film })}
                    placeholder='Film Roll / Collection'
                    />
+                   <Text style={styles.category}>Photo URL</Text>
+                   <TextInput
+                   style={styles.center}
+                   autoCapitalize = 'none'
+                   onChangeText={(photo_url) => this.setState({ photo_url: photo_url })}
+                   placeholder='PhotoUrl'
+                   />
                    <Text style={styles.category}>Camera</Text>
                    <TextInput
                    style={styles.center}
@@ -172,6 +185,7 @@ class Update extends React.Component {
                    <View>
                        <Text style={styles.bold}>{this.state.shutter}</Text>
                    </View>
+
                    <Modal
                        animationType="slide"
                        transparent={false}
@@ -190,7 +204,7 @@ class Update extends React.Component {
                                    }>
                                    <Picker.Item label="Type" value="None" />
                                    <Picker.Item label="B & W" value="B & W" />
-                                   <Picker.Item label="color" value="color" />
+                                   <Picker.Item label="Color" value="color" />
                                 </Picker>
                            </View>
                            <View>
@@ -344,7 +358,7 @@ class Update extends React.Component {
                        <Button
                            title="Submit Photo"
                            type="clear"
-                           onPress={() => this.handleUpdate(this.state, this.state.photo_id)}
+                           onPress={() => this.handleUpdate()}
                        />
                      </ThemeProvider>
              </View>

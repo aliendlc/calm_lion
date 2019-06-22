@@ -27,7 +27,8 @@ class MyPhotos extends React.Component {
    super(props);
    this.state = {
        photos: [],
-       success: true
+       success: true,
+       photo_id: null
      };
    }
 
@@ -64,7 +65,7 @@ class MyPhotos extends React.Component {
                                >
                                    <Button
                                    title={photo.description}
-                                   onPress={() => this.props.navigation.navigate('ShowPhoto', {photo})}/>
+                                   onPress={() =>  this.props.navigation.navigate('ShowPhoto', {photo})}/>
                                </View>
             ): ""}
          </View>

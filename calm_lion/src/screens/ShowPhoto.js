@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Alert } from 'react-native';
+import { Button, View, Text, StyleSheet, Modal, TouchableHighlight, Alert, Image } from 'react-native';
 // import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { ThemeProvider, Icon} from 'react-native-elements';
 
@@ -50,6 +50,7 @@ class ShowPhoto extends React.Component {
          this.state = {
              modalVisible: false,
              success: false
+
            };
     }
     setModalVisible(visible) {
@@ -68,16 +69,12 @@ class ShowPhoto extends React.Component {
            this.props.navigation.navigate('MyPhotos')
           }).catch( err => console.log('this is error from handleDelete:', err))
     }
-    wait = () => {
-      setState(prevState => {
-          success: !prevState
-      },
-      this.props.navigation.navigate('MyPhotos')
-    )
-    }
+
        render() {
          const { navigation } = this.props;
          const photo = navigation.getParam('photo')
+         const photo_id = photo.photo_id
+
            return (
             <View style={styles.container}>
                    <Text style={styles.category}>Description</Text>
@@ -119,6 +116,38 @@ class ShowPhoto extends React.Component {
                   <View>
                       <Text style={styles.bold}>{photo.shutter}</Text>
                   </View>
+                  {photo.photo_url ? <View style={{marginTop: 22}}>
+                        <Modal
+                          animationType="slide"
+                          transparent={false}
+                          style={{justifyContent: 'space-around'}}
+                          visible={this.state.modalVisible}
+                          onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                          }}>
+                          <View style={{marginTop: 300, justifyContent: 'center', alignItems: 'center'}}>
+                              <Image source={{uri: photo.photo_url}} style={{width: 300, height: 200}} />
+
+                              <TouchableHighlight
+                                style={{marginTop: 75}}
+                                onPress={() => {
+                                  this.setModalVisible(!this.state.modalVisible);
+                                }}
+                                >
+                                <Text
+                                    style={{fontWeight: 'bold', fontSize: 20, color:'#9CCF31'}}>Back</Text>
+                              </TouchableHighlight>
+                          </View>
+                        </Modal>
+
+                        <TouchableHighlight
+                          onPress={() => {
+                            this.setModalVisible(true);
+                          }}>
+                          <Text
+                              style={{fontSize: 20, color:'blue', fontWeight:'bold'}}>Show Picture</Text>
+                        </TouchableHighlight>
+                      </View>: <Text></Text>}
                   <Button
                       title="Delete"
                       onPress={()=> this.handleDelete(photo.photo_id)}
@@ -128,6 +157,7 @@ class ShowPhoto extends React.Component {
                       title="Update"
                       onPress={()=>this.props.navigation.navigate('Update', {photo})}
                   />
+
             </View>
           );
       }
