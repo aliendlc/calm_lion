@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
 
   },
+  button :{
+    marginRight:40,
+    marginLeft:40,
+    marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#9CCF31',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#9CCF31'
+  },
 
 });
 
@@ -64,6 +75,7 @@ class MyPhotos extends React.Component {
                                key={index}
                                >
                                    <Button
+                                  style={styles.button}
                                    title={photo.description}
                                    onPress={() =>  this.props.navigation.navigate('ShowPhoto', {photo})}/>
                                </View>

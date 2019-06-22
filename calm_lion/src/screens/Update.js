@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   category: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: 'red'
+      color: '#9CCF31'
   },
   details: {
       fontSize: 20,
@@ -204,7 +204,7 @@ class Update extends React.Component {
                                    }>
                                    <Picker.Item label="Type" value="None" />
                                    <Picker.Item label="B & W" value="B & W" />
-                                   <Picker.Item label="Color" value="color" />
+                                   <Picker.Item label="Color" value="Color" />
                                 </Picker>
                            </View>
                            <View>

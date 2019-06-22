@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
   category: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: 'red'
+      color: '#9CCF31'
   },
   details: {
       fontSize: 20,
-      color: '#99ccff',
+      color: 'rgba(28, 115, 211, 1.0)',
       fontWeight: 'bold',
   },
 });
@@ -213,7 +213,7 @@ class NewEntry extends React.Component {
                                       }>
                                       <Picker.Item label="Type" value="None" />
                                       <Picker.Item label="B & W" value="B & W" />
-                                      <Picker.Item label="color" value="color" />
+                                      <Picker.Item label="Color" value="Color" />
                                    </Picker>
                               </View>
                               <View>
@@ -365,7 +365,7 @@ class NewEntry extends React.Component {
                         </Modal>
                         <ThemeProvider theme={theme}>
                           <Button
-                              title="Submit Photo"
+                              title="Submit"
                               type="clear"
                               onPress={() => this.newPhoto(this.state)}
                           />

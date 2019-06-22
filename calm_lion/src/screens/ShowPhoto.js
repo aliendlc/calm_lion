@@ -145,7 +145,7 @@ class ShowPhoto extends React.Component {
                             this.setModalVisible(true);
                           }}>
                           <Text
-                              style={{fontSize: 20, color:'blue', fontWeight:'bold'}}>Show Picture</Text>
+                              style={{fontSize: 20, color:'#9CCF31', fontWeight:'bold'}}>Show Picture</Text>
                         </TouchableHighlight>
                       </View>: <Text></Text>}
                   <Button
