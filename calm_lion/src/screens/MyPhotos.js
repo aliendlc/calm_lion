@@ -44,7 +44,7 @@ class MyPhotos extends React.Component {
    }
 
    componentDidMount(){
-       fetch('http://localhost:3000/photos')
+       fetch('http://film-sage.herokuapp.com/photos')
            .then(data => data.json())
        .then(jData => {
            console.log(jData);
@@ -55,7 +55,7 @@ class MyPhotos extends React.Component {
        })
    }
    fetchData = () => {
-       fetch('http://localhost:3000/photos')
+       fetch('http://film-sage.herokuapp.com/photos')
            .then(data => data.json())
        .then(jData => {
            console.log(jData);
@@ -69,6 +69,17 @@ class MyPhotos extends React.Component {
 
       return (
          <View>
+             <Button
+                 onPress={() => this.props.navigation.navigate('Home')}
+                 title="Home"
+                 type="clear"
+
+             />
+             <Button
+                 onPress={() => this.props.navigation.navigate('NewEntry')}
+                 title="New Photo"
+                 type="clear"
+             />
             <Text style={styles.subHeading}>My Photos</Text>
             <Button onPress={()=>this.fetchData()} title="Get Photos" type="clear"/>
             {this.state.photos ?  this.state.photos.map((photo, index) =>  <View

@@ -76,7 +76,8 @@ class Update extends React.Component {
              camera: '',
              description: 'no description',
              modalVisible: false,
-             photo_url: ''
+             photo_url: '',
+             success: false
            };
   };
 
@@ -86,6 +87,11 @@ class Update extends React.Component {
   //   aPhoto = photo
   //   console.log(aPhoto.description);
   // }
+  delay = () => {
+    this.setState(prevState => {
+        success: !prevState
+    })
+  }
   componentDidMount () {
     const { navigation } = this.props;
     const photo = navigation.getParam('photo')
@@ -115,7 +121,7 @@ class Update extends React.Component {
           const newPhoto = this.state
           console.log(aPhoto);
           console.log(newPhoto);
-          fetch(`http://localhost:3000/photos/${id}`, {
+          fetch(`http://film-sage.herokuapp.com/photos/${id}`, {
               body: JSON.stringify(newPhoto, id),
               method: 'PUT',
               headers: {
@@ -123,8 +129,13 @@ class Update extends React.Component {
                   'Content-Type': 'application/json'
               }
           })
-          .then( updatedPhoto => updatedPhoto.json())
-          .then(jData => {
+          .then( updatedPhoto => {
+            updatedPhoto.json()
+            this.setState(prevState => {
+                success: !prevState
+            })
+          }).then(jData => {
+              this.delay()
               console.log("this is jData", jData);
               this.props.navigation.navigate('MyPhotos')
           })
@@ -356,7 +367,7 @@ class Update extends React.Component {
                      </Modal>
                      <ThemeProvider theme={theme}>
                        <Button
-                           title="Submit Photo"
+                           title="Update"
                            type="clear"
                            onPress={() => this.handleUpdate()}
                        />

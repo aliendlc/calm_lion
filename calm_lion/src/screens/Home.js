@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements'
 
 const styles = StyleSheet.create({
@@ -65,11 +65,17 @@ class Home extends React.Component {
        render() {
            return (
 
-                <View>
-                    <Button title="Sign Up"
-                      style = {styles.button}
-                      onPress={() => this.shoState()}
-                     />
+                <View style={styles.container}>
+                    <Text
+                        style={{fontSize:30, color:"#9CCF31", fontWeight:"bold"}}
+                        >Welcome To</Text>
+                    <Text
+                        style={{fontSize:40, color:"#9CCF31", fontWeight:"bold"}}
+                        >FILM SAGE</Text>
+                    <Image
+                        source={require('../assets/Film_Sage_JPG.jpg')}
+                        style={{width:300, height:300, marginTop:50}}
+                    />
                 </View>
             );
         }

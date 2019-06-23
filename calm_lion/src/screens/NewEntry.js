@@ -98,6 +98,36 @@ class NewEntry extends React.Component {
     hello = () => {
         console.log(this.state);
     }
+    // Continue This so these get called every time visited without componentDidMount
+    // getLocation = () => {
+    //     let geoOptions = {timeOut: 15000}
+    //     navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions)
+    //       // could've gotten timestamp from geolocation
+    // }
+    // getDate = () => {
+    //     let today = new Date().getDate();
+    //     let month = new Date().getMonth();
+    //     let year = new Date().getFullYear();
+    //     let hour =  new Date().getHours();
+    //     let min = new Date().getMinutes();
+    //     let date = today + '/' + month + '/' + year + '  ' + hour + ':' + min
+    //
+    //     this.setState({date: date});
+    // }
+    clear = () => {
+        this.setState({
+          type: '',
+          iso: '',
+          film: '',
+          aperture: '',
+          shutter: '',
+          modalVisible: false,
+          camera: '',
+          description: 'no description',
+          success: false
+        })
+        console.log('clear function ran');
+    }
     componentDidMount(){
       let today = new Date().getDate();
       let month = new Date().getMonth();
@@ -114,7 +144,7 @@ class NewEntry extends React.Component {
       newPhoto = (photo) => {
             console.log(this.state);
             console.log(photo);
-            fetch('http://localhost:3000/photos', {
+            fetch('http://film-sage.herokuapp.com/photos', {
                 body: JSON.stringify(photo),
                 method: 'POST',
                 headers: {
@@ -123,11 +153,10 @@ class NewEntry extends React.Component {
                 }
               }).then( createdphoto => {
                     return createdphoto.json()
-                    setState(prevState => {
-                        success: !prevState
-                    })
+
                 }).then( jData => {
                     console.log(jData, '.then Jdata');
+                    this.clear()
                     this.props.navigation.navigate('MyPhotos')
                     console.log(this.state);
                 }).catch( err => console.log(err));

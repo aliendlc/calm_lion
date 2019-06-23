@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   category: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: 'red'
+      color: '#9CCF31'
   },
   container: {
     flex: 2,
@@ -57,15 +57,16 @@ class ShowPhoto extends React.Component {
          this.setState({modalVisible: visible});
     }
     handleDelete = (id) => {
-           fetch(`http://localhost:3000/photos/${id}`, {
+           fetch(`http://film-sage.herokuapp.com/photos/${id}`, {
               method: 'DELETE'
           }).then(data => {
 
             return data.json()
-            setState(prevState => {
+
+          }).then( doThis => {
+            this.setState(prevState => {
                 success: !prevState
             })
-          }).then( doThis => {
            this.props.navigation.navigate('MyPhotos')
           }).catch( err => console.log('this is error from handleDelete:', err))
     }
